@@ -4,12 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 
@@ -18,12 +20,12 @@ import com.facebook.react.bridge.UiThreadUtil;
 public class RNBootSplash {
 
   private static boolean mInitialized = false;
-  private static int mDrawableResId = -1;
+  private static int mLayoutResId = -1;
   private static boolean mIsVisible = false;
 
-  public static void init(final int drawableResId, @NonNull final Activity activity) {
+  public static void init(final int layoutResId, @NonNull final Activity activity) {
     if (!mInitialized) {
-      mDrawableResId = drawableResId;
+      mLayoutResId = layoutResId;
       mInitialized = true;
       RNBootSplash.show(activity, 0.0f);
     }
@@ -40,16 +42,12 @@ public class RNBootSplash {
         mIsVisible = true;
 
         Context context = activity.getApplicationContext();
-        LinearLayout layout = new LinearLayout(context);
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        View view = new View(context);
         int roundedDuration = duration.intValue();
+        RelativeLayout layout = (RelativeLayout) LayoutInflater.from(context)
+                .inflate(mLayoutResId, null);
 
-        view.setBackgroundResource(mDrawableResId);
         layout.setId(R.id.bootsplash_layout_id);
-        layout.setLayoutTransition(null);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.addView(view, params);
 
         if (roundedDuration <= 0) {
           activity.addContentView(layout, params);
@@ -78,7 +76,7 @@ public class RNBootSplash {
 
         mIsVisible = false;
 
-        final LinearLayout layout = activity.findViewById(R.id.bootsplash_layout_id);
+        final RelativeLayout layout = activity.findViewById(R.id.bootsplash_layout_id);
 
         if (layout == null) {
           return;
