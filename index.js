@@ -9,8 +9,11 @@ export function show(config = {}) {
   RNBootSplash.show({ duration: 0, ...config }.duration);
 }
 
-export function getVisibilityStatus() {
-  RNBootSplash.getVisibilityStatus();
+export async function getVisibilityStatus() {
+  const result  = await RNBootSplash.getVisibilityStatus().then(status => {
+    return status;
+  });
+  return result;
 }
 
-export default { show, hide };
+export default { show, hide, getVisibilityStatus };

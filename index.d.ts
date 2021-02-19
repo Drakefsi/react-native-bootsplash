@@ -9,9 +9,7 @@ declare module "react-native-bootsplash" {
 
   export function show(config?: ShowConfig): void;
   export function hide(config?: HideConfig): void;
-  export function getVisibilityStatus(): Promise<VisibilityStatus> {
-    return NativeModule.getVisibilityStatus();
-  }
+  export function getVisibilityStatus(): Promise<VisibilityStatus>;
 
   const RNBootSplash: {
     show: typeof show;
