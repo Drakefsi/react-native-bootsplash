@@ -10,7 +10,7 @@ export function show(config = {}) {
 }
 
 export function getVisibilityStatus() {
-  return RNBootSplash.getVisibilityStatus();
+  RNBootSplash.getVisibilityStatus();
 }
 
 export default { show, hide };
