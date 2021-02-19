@@ -9,4 +9,8 @@ export function show(config = {}) {
   RNBootSplash.show({ duration: 0, ...config }.duration);
 }
 
+export function getVisibilityStatus() {
+  return RNBootSplash.getVisibilityStatus();
+}
+
 export default { show, hide };
